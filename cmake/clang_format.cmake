@@ -8,7 +8,7 @@ find_program(CLANG_FORMAT_BIN NAMES clang-format)
 if(CLANG_FORMAT_BIN)
   message(STATUS "Found: clang-format")
   file(GLOB_RECURSE CPP_SOURCE_FILES *.cpp)
-  file(GLOB_RECURSE CPP_HEADER_FILES *.h)
+  file(GLOB_RECURSE CPP_HEADER_FILES *.hpp)
 
   add_custom_target(
     format-sources

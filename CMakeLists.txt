@@ -13,7 +13,7 @@ cmake_policy(SET CMP0063 NEW)
 # Enables the MSVC_RUNTIME_LIBRARY property on targets
 cmake_policy(SET CMP0091 NEW)
 # Define the Project Name and Description
-project(moderncpp-project LANGUAGES CXX DESCRIPTION "moderncpp-project is a starter project for Modern C++")
+project(qt-widgets-customized LANGUAGES CXX DESCRIPTION "qt-widgets-customized an effort to stylish qt widgets")
 
 # Set Project version (used for library versioning and for CPack)
 set(CMAKE_PROJECT_VERSION_MAJOR 1)
@@ -22,7 +22,7 @@ set(CMAKE_PROJECT_VERSION_PATCH 0)
 set(CMAKE_PROJECT_VERSION ${CMAKE_PROJECT_VERSION_MAJOR}.${CMAKE_PROJECT_VERSION_MINOR}.${CMAKE_PROJECT_VERSION_PATCH})
 
 # Set required C++ Standard
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 # Generate the compile_commands.json file
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
@@ -53,12 +53,8 @@ include(CMakePackageConfigHelpers)
 include(InstallRequiredSystemLibraries)
 include(GenerateExportHeader)
 include(${CMAKE_SOURCE_DIR}/cmake/clang_format.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/compiler_options.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/cpack.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/cppcheck.cmake)
-include(${CMAKE_SOURCE_DIR}/cmake/dependencies.cmake)
 
 #####################################
 # Define Targets
 #####################################
-add_subdirectory(project)
+add_subdirectory(src)

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(qt-material-widgets LANGUAGES CXX)
+project(qt-widgets-customized LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -24,20 +24,23 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 if(ANDROID)
-  add_library(untitled SHARED
+  add_library(demo_app SHARED
     main.cpp
     widget.cpp
     widget.hpp
+    style.hpp
+    switch.hpp
   )
 else()
-  add_executable(untitled
+  add_executable(demo_app
     main.cpp
     widget.cpp
     widget.hpp
+    switch.cpp
   )
 endif()
 
-target_link_libraries(untitled PRIVATE Qt5::Widgets)
+target_link_libraries(demo_app PRIVATE Qt::Widgets)
