@@ -1,43 +1,64 @@
-cmake_minimum_required(VERSION 3.5)
+# MIT License 
+# Copyright (c) 2018-Today Michele Adduci <adduci@tutanota.com>
+#
+# Main CMake Project file
 
-project(qt-material-widgets LANGUAGES CXX)
+#####################################
+# Define Project-Wide Settings
+#####################################
+cmake_minimum_required(VERSION 3.15.0 FATAL_ERROR)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# Enables the Visibility Property on all target types
+cmake_policy(SET CMP0063 NEW)
+# Enables the MSVC_RUNTIME_LIBRARY property on targets
+cmake_policy(SET CMP0091 NEW)
+# Define the Project Name and Description
+project(moderncpp-project LANGUAGES CXX DESCRIPTION "moderncpp-project is a starter project for Modern C++")
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+# Set Project version (used for library versioning and for CPack)
+set(CMAKE_PROJECT_VERSION_MAJOR 1)
+set(CMAKE_PROJECT_VERSION_MINOR 0)
+set(CMAKE_PROJECT_VERSION_PATCH 0)
+set(CMAKE_PROJECT_VERSION ${CMAKE_PROJECT_VERSION_MAJOR}.${CMAKE_PROJECT_VERSION_MINOR}.${CMAKE_PROJECT_VERSION_PATCH})
 
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Set required C++ Standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+# Generate the compile_commands.json file
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+# Set the Relative Path Configurations
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+# Configure the visibility of symbols in targets
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+# Define installation folder and the module path (this one required by conan)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
+set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})
+set(CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR} ${CMAKE_PREFIX_PATH})
 
-# QtCreator supports the following variables for Android, which are identical to qmake Android variables.
-# Check http://doc.qt.io/qt-5/deployment-android.html for more information.
-# They need to be set before the find_package(Qt5 ...) call.
+#####################################
+# Define Options
+#####################################
+option(BUILD_TESTING "Build tests" FALSE)
+option(BUILD_SHARED_LIBS "Build shared libraries" FALSE)
+option(BUILD_WITH_MT "Build libraries as MultiThreaded DLL (Windows Only)" FALSE)
 
-#if(ANDROID)
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-#    if (ANDROID_ABI STREQUAL "armeabi-v7a")
-#        set(ANDROID_EXTRA_LIBS
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libcrypto.so
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libssl.so)
-#    endif()
-#endif()
+#####################################
+# Define CMake Module Imports
+#####################################
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+include(InstallRequiredSystemLibraries)
+include(GenerateExportHeader)
+include(${CMAKE_SOURCE_DIR}/cmake/clang_format.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/compiler_options.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/cpack.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/cppcheck.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/dependencies.cmake)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
-
-if(ANDROID)
-  add_library(untitled SHARED
-    main.cpp
-    widget.cpp
-    widget.hpp
-  )
-else()
-  add_executable(untitled
-    main.cpp
-    widget.cpp
-    widget.hpp
-  )
-endif()
-
-target_link_libraries(untitled PRIVATE Qt5::Widgets)
+#####################################
+# Define Targets
+#####################################
+add_subdirectory(project)
